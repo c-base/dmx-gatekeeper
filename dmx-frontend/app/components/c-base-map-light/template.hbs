@@ -1,0 +1,15 @@
+<button local-class="button {{if selected 'selected'}}" onclick={{action 'select'}}>
+  {{!--{{#if showDetail}}
+    <div>
+      {{#ember-tether
+        local-class="tether"
+        target=(concat '#' elementId)
+        targetAttachment='bottom center'
+        attachment='top center'
+      }}
+        {{color-picker selectColor=(action 'selectColor')}}
+      {{/ember-tether}}
+    </div>
+  {{/if}}--}}
+</button>
+

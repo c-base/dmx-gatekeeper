@@ -1,0 +1,16 @@
+<section>
+  {{#each lightInfos as |lightInfo|}}
+    {{c-base-map-light lightInfo=lightInfo selectedIds=selectedIds select=select}}
+  {{/each}}
+
+  <img src="http://baseos.cbrp3.c-base.org/dmxdmon/mainhall.png" />
+</section>
+<section>
+  {{#if selectedLightInfos}}
+    {{selectedLightInfos.length}} Licht setzen
+  {{else}}
+    Alle Lichter setzen
+  {{/if}}
+
+  {{color-picker selectColor=(action 'selectColor')}}
+</section>
