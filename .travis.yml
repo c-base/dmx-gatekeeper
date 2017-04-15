@@ -2,6 +2,8 @@ script:
 - cp known_hosts ~/.ssh/
 - cp githubssh ~/.ssh/id_rsa
 - cp githubssh.pub ~/.ssh/id_rsa.pub
+- chmod 400 ~/.ssh/id_rsa
+- chmod 400 ~/.ssh/id_rsa.pub
 - git remote add gitlab git@gitlab.com:luxferresum/dmx-gatekeeper.git
 - git push gitlab --all
 - git push gitlab --tags
