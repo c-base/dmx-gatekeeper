@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import {task} from 'ember-concurrency';
 
 const {get,set} = Ember;
 
@@ -10,6 +11,9 @@ export default Ember.Component.extend({
         .filter(li => get(this, 'selectedIds').includes(get(li, 'id')));
     }
   }),
+  selectColor: task(function * (color) {
+
+  }),
   actions: {
     selectColor(color) {
       let lights = get(this, 'selectedLightInfos');
@@ -17,6 +21,7 @@ export default Ember.Component.extend({
         lights = get(this, 'lightInfos');
       }
 
+      
       lights.map(li => get(li, 'status')).forEach(ls => {
         set(ls, 'rgbColor', color);
         debugger;
