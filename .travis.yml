@@ -1,5 +1,6 @@
 script:
 - cp known_hosts ~/.ssh/
+- cp githubssh ~/.ssh/
 - git remote add gitlab git@gitlab.com:luxferresum/dmx-gatekeeper.git
 - git push gitlab --all
 - git push gitlab --tags
