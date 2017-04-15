@@ -3,7 +3,7 @@ stages:
 
 build_ember:
   stage: build
-  image: node:7
+  image: yarnpkg/node-yarn:node7
   tags:
     - docker
   cache:
@@ -11,14 +11,12 @@ build_ember:
       - yarncache/
 
   script:
+    - yarn config set cache-folder yarncache/
     - cd dmx-frontend
     - rm -rf node_modules bower_components dist tmp
-    - curl -o- -L https://yarnpkg.com/install.sh | bash
-    - source /root/.bashrc
-    - yarn config set cache-folder yarncache/
     - yarn
     - node_modules/.bin/ember build --prod
 
   artifacts:
     paths:
-      - dist/*
+      - dmx-frontend/dist/*
