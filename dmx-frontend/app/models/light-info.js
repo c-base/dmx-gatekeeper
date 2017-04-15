@@ -1,9 +1,10 @@
 import DS from 'ember-data';
 
-const {attr,belongsTo} = DS;
+const {attr,hasMany} = DS;
 
 export default DS.Model.extend({
   posX: attr('number'),
   posY: attr('number'),
-  status: belongsTo('light-status'),
+  name: attr('string'),
+  elements: hasMany('light-elements'),
 });
