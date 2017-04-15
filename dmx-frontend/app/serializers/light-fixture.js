@@ -42,5 +42,8 @@ export default ApplicationSerializer.extend({
     });
 
     return relationships;
-  }
+  },
+  keyForAttribute: function(attr) {
+    return Ember.String.underscore(attr);
+  },
 });
