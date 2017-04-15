@@ -19,4 +19,4 @@ build_ember:
 
   artifacts:
     paths:
-      - dmx-frontend/dist/*
+      - dmx-frontend/dist/
