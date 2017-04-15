@@ -1,1 +1,15 @@
-<input local-class="picker" type="color" onchange={{action selectColor value="target.value"}} />
+<input local-class="picker" type="color" onchange={{action 'selectColor' value="target.value"}} />
+{{#if selectedColor}}
+  <button onclick={{action 'addColor'}}>
+    Farbe sichern
+  </button>
+{{/if}}
+
+<secion local-class="colors">
+  {{#each colors as |color|}}
+    <section local-class="color" style={{build-css
+      background-color=color.id
+    }} onclick={{action selectColor color.id}}>
+    </section>
+  {{/each}}
+</secion>

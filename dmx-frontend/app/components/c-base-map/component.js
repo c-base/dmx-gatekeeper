@@ -12,21 +12,18 @@ export default Ember.Component.extend({
     }
   }),
   selectColor: task(function * (color) {
+    let lights = yield Ember.RSVP.all(get(this, 'selectedLightInfos'));
+    if(!lights || !get(lights, 'length')) {
+      lights = yield Ember.RSVP.all(get(this, 'lightInfos'));
+    }
 
+    let status = yield Ember.RSVP.all(lights.map(li => get(li, 'status')));
+
+    status.forEach(ls => {
+      set(ls, 'rgbColor', color);
+      ls.save();
+    });
   }),
   actions: {
-    selectColor(color) {
-      let lights = get(this, 'selectedLightInfos');
-      if(!lights || !get(lights, 'length')) {
-        lights = get(this, 'lightInfos');
-      }
-
-      
-      lights.map(li => get(li, 'status')).forEach(ls => {
-        set(ls, 'rgbColor', color);
-        debugger;
-        ls.save();
-      });
-    }
   }
 });

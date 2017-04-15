@@ -26,4 +26,6 @@ export default function() {
 
   this.get('/light-infos');
   this.get('/light-status/:id');
+
+  this.patch('/light-status/:id');
 }
