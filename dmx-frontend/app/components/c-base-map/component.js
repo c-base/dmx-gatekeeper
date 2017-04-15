@@ -14,7 +14,7 @@ export default Ember.Component.extend({
   selectColor: task(function * (color) {
     let lights = yield Ember.RSVP.all(get(this, 'selectedLightInfos'));
     if(!lights || !get(lights, 'length')) {
-      lights = yield Ember.RSVP.all(get(this, 'lightInfos'));
+      lights = get(this, 'lightInfos').toArray();
     }
 
     let status = yield Ember.RSVP.all(lights.map(li => get(li, 'status')));
