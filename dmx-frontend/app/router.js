@@ -7,7 +7,7 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
-  this.route('light-status', {path: '/'});
+  this.route('light-fixtures', {path: '/'});
 });
 
 export default Router;

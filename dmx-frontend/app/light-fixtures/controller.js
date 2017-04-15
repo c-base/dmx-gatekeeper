@@ -3,7 +3,7 @@ import Ember from 'ember';
 const {set} = Ember;
 
 export default Ember.Controller.extend({
-  lightInfos: Ember.computed.alias('model'),
+  lightFixtures: Ember.computed.alias('model'),
   queryParams: ['selectedIds'],
   selectedIds: [],
   actions: {

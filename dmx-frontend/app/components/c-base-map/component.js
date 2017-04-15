@@ -5,16 +5,16 @@ const {get,set} = Ember;
 
 export default Ember.Component.extend({
   localClassNames: 'map',
-  selectedLightInfos: Ember.computed('selectedIds.[]', 'lightInfos.@each.id', {
+  selectedLightFixtures: Ember.computed('selectedIds.[]', 'lightFixtures.@each.id', {
     get() {
-      return get(this, 'lightInfos')
+      return get(this, 'lightFixtures')
         .filter(li => get(this, 'selectedIds').includes(get(li, 'id')));
     }
   }),
   selectColor: task(function * (color) {
-    let lights = yield Ember.RSVP.all(get(this, 'selectedLightInfos'));
+    let lights = yield Ember.RSVP.all(get(this, 'selectedLightFixtures'));
     if(!lights || !get(lights, 'length')) {
-      lights = get(this, 'lightInfos').toArray();
+      lights = get(this, 'lightFixtures').toArray();
     }
 
     let status = yield Ember.RSVP.all(lights.map(li => get(li, 'status')));

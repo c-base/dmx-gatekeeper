@@ -24,8 +24,10 @@ export default function() {
     http://www.ember-cli-mirage.com/docs/v0.3.x/shorthands/
   */
 
-  this.get('/light-infos');
-  this.get('/light-status/:id');
+  // this.get('/light-infos');
+  // this.get('/light-status/:id');
 
-  this.patch('/light-status/:id');
+  // this.patch('/light-status/:id');
+
+  this.passthrough();
 }

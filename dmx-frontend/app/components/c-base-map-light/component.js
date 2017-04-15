@@ -5,19 +5,19 @@ const {get} = Ember;
 export default Ember.Component.extend({
   attributeBindings: ['style'],
   localClassNames: ['light'],
-  style: Ember.computed('lightInfo.posY', 'lightInfo.posX', 'lightInfo.status.rgbColor', {
+  style: Ember.computed('lightFixtures.posY', 'lightFixtures.posX', 'lightFixtures.status.rgbColor', {
     get() {
       return Ember.String.htmlSafe(`
-        top: ${get(this, 'lightInfo.posY')}px;
-        left: ${get(this, 'lightInfo.posX')}px;
-        background: ${get(this, 'lightInfo.status.rgbColor')};
+        top: ${get(this, 'lightFixtures.posY')}px;
+        left: ${get(this, 'lightFixtures.posX')}px;
+        background: ${get(this, 'lightFixtures.status.rgbColor')};
       `);
     }
   }),
 
-  selected: Ember.computed('selectedIds.[]', 'lightInfo.id', {
+  selected: Ember.computed('selectedIds.[]', 'lightFixtures.id', {
     get() {
-      return get(this, 'selectedIds').includes(get(this, 'lightInfo.id'));
+      return get(this, 'selectedIds').includes(get(this, 'lightFixtures.id'));
     }
   }),
   
@@ -25,10 +25,10 @@ export default Ember.Component.extend({
     select() {
       if(get(this, 'selected')) {
         // unselect
-        get(this, 'select')(get(this, 'selectedIds').without(get(this, 'lightInfo.id')));
+        get(this, 'select')(get(this, 'selectedIds').without(get(this, 'lightFixtures.id')));
       } else {
         // select
-        get(this, 'select')([get(this, 'lightInfo.id'), ...get(this, 'selectedIds')]);
+        get(this, 'select')([get(this, 'lightFixtures.id'), ...get(this, 'selectedIds')]);
       }
     },
   }
