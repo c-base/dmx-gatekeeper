@@ -4,7 +4,7 @@ script:
 - cp githubssh.pub ~/.ssh/id_rsa.pub
 - chmod 400 ~/.ssh/id_rsa
 - chmod 400 ~/.ssh/id_rsa.pub
-- git remote add gitlab git@gitlab.com:luxferresum/dmx-gatekeeper.git
+- git remote add gitlab git@gitlab.com:c-base/dmx-gatekeeper.git
 - git push gitlab --all
 - git push gitlab --tags
 
