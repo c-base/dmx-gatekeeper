@@ -2,6 +2,10 @@
 # yarn lockfile v1
 
 
+"@typopro/web-source-sans-pro@^3.4.9":
+  version "3.4.9"
+  resolved "https://registry.yarnpkg.com/@typopro/web-source-sans-pro/-/web-source-sans-pro-3.4.9.tgz#1811ff058379ca881e0ea3168c83ec662af23db5"
+
 abbrev@1:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.0.tgz#d0554c2256636e2f56e7c2e5ad183f859428d81f"
@@ -1914,13 +1918,6 @@ ember-cli-eslint@^3.0.0:
     rsvp "^3.2.1"
     walk-sync "^0.3.0"
 
-ember-cli-font-awesome@^1.5.2:
-  version "1.5.2"
-  resolved "https://registry.yarnpkg.com/ember-cli-font-awesome/-/ember-cli-font-awesome-1.5.2.tgz#d8a911c274c7ba0fe70171ae15983f782c52d507"
-  dependencies:
-    ember-cli-babel "^5.1.5"
-    ember-computed-decorators "0.2.2"
-
 ember-cli-get-component-path-option@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/ember-cli-get-component-path-option/-/ember-cli-get-component-path-option-1.0.0.tgz#0d7b595559e2f9050abed804f1d8eff1b08bc771"
@@ -2195,12 +2192,6 @@ ember-cli@2.12.1:
     uuid "^3.0.0"
     walk-sync "^0.3.0"
     yam "0.0.22"
-
-ember-computed-decorators@0.2.2:
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/ember-computed-decorators/-/ember-computed-decorators-0.2.2.tgz#7c934a575c55ac3a18b6aaeb7cd2cbe149bc9b34"
-  dependencies:
-    ember-cli-babel "^5.1.5"
 
 ember-concurrency@^0.8.1:
   version "0.8.1"

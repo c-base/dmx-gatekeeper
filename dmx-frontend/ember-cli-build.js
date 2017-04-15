@@ -1,23 +1,27 @@
 /* eslint-env node */
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
+const Funnel = require('broccoli-funnel');
+const MergeTrees = require('broccoli-merge-trees');
 
 module.exports = function(defaults) {
+  const assets = [];
+  const vendor = new MergeTrees([
+    new Funnel('vendor'),
+    new Funnel('node_modules/@typopro/web-source-sans-pro/', {destDir: 'source-sans-pro' }),
+  ]);
+
   var app = new EmberApp(defaults, {
     // Add options here
+    trees: {
+      vendor
+    }
   });
 
-  // Use `app.import` to add additional libraries to the generated
-  // output files.
-  //
-  // If you need to use different assets in different
-  // environments, specify an object as the first parameter. That
-  // object's keys should be the environment name and the values
-  // should be the asset to use in that environment.
-  //
-  // If the library that you are including contains AMD or ES6
-  // modules that you would like to import into your application
-  // please specify an object with the list of modules as keys
-  // along with the exports of each module as its value.
+  app.import('vendor/source-sans-pro/TypoPRO-SourceSansPro.css');
+  assets.push(new Funnel(vendor, { srcDir: 'source-sans-pro', include: ['*.eot','*.ttf','*.woff'] }));
 
-  return app.toTree();
+  return new MergeTrees([
+    new Funnel(new MergeTrees(assets), { destDir: 'assets' }),
+    app.toTree(),
+  ]);
 };
