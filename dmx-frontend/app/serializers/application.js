@@ -2,11 +2,11 @@ import Ember from 'ember';
 import DS from 'ember-data';
 
 export default DS.JSONAPISerializer.extend({
-  normalize(typeClass, hash) {
-    const { relationships, included } = this.extractRelationships(typeClass, hash);
-
+  normalize(typeClass, hash, parentId) {
     const type = typeClass.modelName;
-    const id = this.extractId(typeClass, hash);
+    const id = this.extractId(typeClass, hash, parentId);
+
+    const { relationships, included } = this.extractRelationships(typeClass, hash, id);
 
     return {
       data: {type, id},
@@ -19,7 +19,7 @@ export default DS.JSONAPISerializer.extend({
     };
   },
 
-  normalizeArrayResponse(store, primaryModelClass, payload, id, requestType) {
+  normalizeArrayResponse(store, primaryModelClass, payload) {
     const dataArr = [];
     const includedArr = [];
     payload.forEach(element => {
@@ -30,7 +30,7 @@ export default DS.JSONAPISerializer.extend({
 
     return {data: dataArr, included: includedArr};
   },
-  extractRelationships(modelClass, resourceHash) {
+  extractRelationships(modelClass, resourceHash, elementId) {
     const relationships = {};
     const included = [];
 
@@ -39,12 +39,10 @@ export default DS.JSONAPISerializer.extend({
         const relationshipKey = this.keyForRelationship(key, relationshipMeta.kind, 'deserialize');
         const relationshipData = [];
         resourceHash[relationshipKey].forEach(item => {
-          item.id = `${resourceHash.id}-${item.name}`;
-          item.type = relationshipMeta.type;
 
           const relationshipModelClass = this.store.modelFor(relationshipMeta.type);
 
-          const normalized = this.normalize(relationshipModelClass, item);
+          const normalized = this.normalize(relationshipModelClass, item, elementId);
 
           relationshipData.push(normalized.data);
           normalized.included.forEach(i => included.push(i));
@@ -58,7 +56,19 @@ export default DS.JSONAPISerializer.extend({
   extractAttributes(modelClass, resourceHash) {
     return this._super(modelClass, { attributes: resourceHash });
   },
-  keyForAttribute: function(attr) {
+  keyForAttribute(attr) {
     return Ember.String.underscore(attr);
+  },
+  extractId(typeClass, hash, parentId) {
+    let idKey = Object.keys(hash).find(key => key.endsWith('_id'));
+    if(idKey) {
+      return hash[idKey];
+    }
+
+    if(hash.name) {
+      return `${parentId}/'#/${hash.name}`
+    }
+
+    return Ember.guidFor(hash);
   },
 });

@@ -5,6 +5,7 @@ import ApplicationAdapter from './application';
 
 export default ApplicationAdapter.extend({
   urlForFindAll() {
-    return '/fixtures/'
+    return 'api/v1/fixtures/'
   },
 });
+
