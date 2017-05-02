@@ -24,7 +24,6 @@ module.exports = function(deployTarget) {
       username: 'root',
       host: 'dmx.cbrp3.c-base.org',
       path: '/root/dmxbackend/static',
-      displayCommands: true,
     }
   }
 

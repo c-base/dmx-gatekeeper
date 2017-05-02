@@ -43,7 +43,7 @@ export default Ember.Service.extend({
   initWebSocketConn: task(function * (ms = 0) {
     yield timeout(ms);
 
-    const socket = new WebSocket('ws://localhost:4200/api/v1/websocket_state/');
+    const socket = new WebSocket(`ws://${window.location.host}/api/v1/websocket_state/`);
     socket.onopen = (...args) => this.onopen(...args);
     socket.onclose = (...args) => this.onclose(...args);
     socket.onmessage = (...args) => this.onmessage(...args);
