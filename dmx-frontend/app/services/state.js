@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const {get} = Ember;
+const {get,set} = Ember;
 
 export default Ember.Service.extend({
   store: Ember.inject.service(),
@@ -9,7 +9,7 @@ export default Ember.Service.extend({
   },
 
   save(snapshot) {
-    const socket = get(this, 'socket';
+    const socket = get(this, 'socket');
     if(socket) {
       debugger;
       socket.send(JSON.stringify({
@@ -22,7 +22,7 @@ export default Ember.Service.extend({
   },
 
   initWebSocketConn() {
-    const socket = new WebSocket('ws://localhost:4200/api/v1/state/');
+    const socket = new WebSocket('ws://localhost:4200/api/v1/websocket_state/');
     socket.onopen = (...args) => this.onopen(...args);
     socket.onclose = (...args) => this.onclose(...args);
     socket.onmessage = (...args) => this.onmessage(...args);
