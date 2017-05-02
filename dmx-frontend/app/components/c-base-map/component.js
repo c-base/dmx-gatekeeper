@@ -30,30 +30,13 @@ export default Ember.Component.extend({
     });
 
     yield Ember.RSVP.all(channels.map(channel => channel.save()));
-
-    // const fixtures = yield Ember.RSVP.all(get(this, 'selectedLightFixtures'));
-    // const elements = yield Ember.RSVP.all(fixtures.reduce((e, fixture) => [get(fixture, 'elements'), ...e], []));
-    // const channels = yield Ember.RSVP.all(elements.reduce((c, element) => [get(element, 'channels'), ...c], []));
-
-    // const channels = get(this, 'selectedLightFixtures')
-    //   .reduce((e, fixture) => [get(fixture, 'elements'), ...e], [])
-    //   .reduce((c, element) => [get(element, 'channels'), ...c], []);
-
-    
-
-    // console.log(channels);
-    // debugger;
-    // if(!lights || !get(lights, 'length')) {
-    //   lights = get(this, 'lightFixtures').toArray();
-    // }
-
-    // let status = yield Ember.RSVP.all(lights.map(li => get(li, 'status')));
-
-    // status.forEach(ls => {
-    //   set(ls, 'rgbColor', color);
-    //   ls.save();
-    // });
   }),
   actions: {
+    selectAll() {
+      get(this, 'select')(get(this, 'lightFixtures').map(f => get(f, 'id')));
+    },
+    deselectAll() {
+      get(this, 'select')([]);
+    },
   }
 });

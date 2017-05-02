@@ -1,4 +1,8 @@
 <section>
+  <button onclick={{action 'selectAll'}}>Select all</button>
+  <button onclick={{action 'deselectAll'}}>Deselect all</button>
+</section>
+<section>
   {{#each lightFixtures as |lightFixture|}}
     {{c-base-map-light lightFixture=lightFixture selectedIds=selectedIds select=select}}
   {{/each}}
