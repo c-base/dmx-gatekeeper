@@ -18,27 +18,36 @@ export default Ember.Service.extend({
   },
 
   flushSave: task(function * () {
-    yield timeout(1);
+    yield timeout(1); // debounce flush
 
-    const socket = get(this, 'socket');
+    let socket = get(this, 'socket');
 
-    if(!socket) {
-      throw "not good";
+    while(!socket) {
+      yield timeout(1000);
+      socket = get(this, 'socket');
     }
 
-    const toSave = get(this, 'toSave');
+    let toSave = get(this, 'toSave');
     set(this, 'toSave', []);
 
-    if(get(toSave, 'length')) {
-      let data = toSave.map(snapshot => ({
-        'channel_id': snapshot.id,
-          value: snapshot.attr('value')
-      }));
-      
-      console.log('flush', data);
-      socket.send(JSON.stringify(data));
+    try {
+      if(get(toSave, 'length')) {
+        let data = toSave.map(snapshot => ({
+          'channel_id': snapshot.id,
+            value: snapshot.attr('value')
+        }));
+        
+        console.log('flush', data);
+        socket.send(JSON.stringify(data));
+
+        toSave = [];
+      }
+    } catch(e) {
+      console.log('error during flush');
+    } finally {
+      set(this, 'toSave', [...get(this, 'toSave'), ...toSave]);
     }
-  }).enqueue(),
+  }).restartable(),
 
   initWebSocketConn: task(function * (ms = 0) {
     yield timeout(ms);
@@ -52,6 +61,7 @@ export default Ember.Service.extend({
   }).drop(),
 
   onclose() {
+    console.log('lost socket');
     set(this, 'socket', null);
     // reopen
     Ember.run.later(() => get(this, 'initWebSocketConn').perform(1000));
