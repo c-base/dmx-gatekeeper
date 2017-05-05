@@ -10,6 +10,7 @@
     <section local-class="color" style={{build-css
       background-color=color.id
     }} onclick={{action selectColor color.id}}>
+      <div local-class="delete-color" onclick={{action 'deleteColor' color}}>&#215;</div>
     </section>
   {{/each}}
 </secion>

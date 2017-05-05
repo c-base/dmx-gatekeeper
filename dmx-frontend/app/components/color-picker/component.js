@@ -23,5 +23,9 @@ export default Ember.Component.extend({
         id: color
       }).save();
     },
+    deleteColor(color, event) {
+      color.destroyRecord();
+      event.stopPropagation();
+    },
   }
 });
