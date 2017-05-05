@@ -1,15 +1,5 @@
-<button local-class="button {{if selected 'selected'}}" onclick={{action 'select'}}>
-  {{!--{{#if showDetail}}
-    <div>
-      {{#ember-tether
-        local-class="tether"
-        target=(concat '#' elementId)
-        targetAttachment='bottom center'
-        attachment='top center'
-      }}
-        {{color-picker selectColor=(action 'selectColor')}}
-      {{/ember-tether}}
-    </div>
-  {{/if}}--}}
-</button>
-
+<div local-class="elements">
+  {{#each lightFixture.elements as |lightElement|}}
+    {{c-base-map-light-element selectedIds=selectedIds select=select lightElement=lightElement isSingleElement=isSingleElement}}
+  {{/each}}
+</div>

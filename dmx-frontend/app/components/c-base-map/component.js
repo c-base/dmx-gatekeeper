@@ -5,9 +5,16 @@ const {get,set} = Ember;
 
 export default Ember.Component.extend({
   localClassNames: 'map',
-  selectedLightFixtures: Ember.computed('selectedIds.[]', 'lightFixtures.@each.id', {
+  lightElements: Ember.computed('lightFixtures.@each.elements', {
     get() {
       return get(this, 'lightFixtures')
+        .map(f => get(f, 'elements').toArray())
+        .reduce((a, b) => [...a, ...b], []);
+    }
+  }),
+  selectedLightElements: Ember.computed('selectedIds.[]', 'lightElements.@each.id', {
+    get() {
+      return get(this, 'lightElements')
         .filter(li => get(this, 'selectedIds').includes(get(li, 'id')));
     }
   }),
@@ -18,8 +25,7 @@ export default Ember.Component.extend({
       b: Number.parseInt([...color].slice(5, 7).join(''), 16),
     };
 
-    const channels = get(this, 'selectedLightFixtures')
-      .reduce((arr, fixture) => [...get(fixture, 'elements').toArray(), ...arr], [])
+    const channels = get(this, 'selectedLightElements')
       .reduce((arr, element) => [...get(element, 'channels').toArray(), ...arr], []);
     
     channels.forEach(c => {
