@@ -49,7 +49,7 @@ export default Ember.Component.extend({
   }),
   actions: {
     selectAll() {
-      get(this, 'select')(get(this, 'lightFixtures').map(f => get(f, 'id')));
+      get(this, 'select')(get(this, 'lightElements').map(f => get(f, 'id')));
     },
     deselectAll() {
       get(this, 'select')([]);
