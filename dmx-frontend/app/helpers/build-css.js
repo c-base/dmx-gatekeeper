@@ -1,4 +1,5 @@
-import Ember from 'ember';
+import { helper } from '@ember/component/helper';
+import { htmlSafe } from '@ember/string';
 
 function normalizesite(val) {
   const regExp = new RegExp('^\d*(px|r?em|%)$');
@@ -34,7 +35,7 @@ export function buildCss(params, hash) {
     .map(key => `${key}:${normalizeCssAttribute(key, hash[key])};`)
     .join('');
 
-  return Ember.String.htmlSafe(str);
+  return htmlSafe(str);
 }
 
-export default Ember.Helper.helper(buildCss);
+export default helper(buildCss);

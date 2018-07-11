@@ -1,18 +1,18 @@
-import Ember from 'ember';
-import {task} from 'ember-concurrency';
+import { all } from 'rsvp';
+import Component from '@ember/component';
+import { set, get, computed } from '@ember/object';
+import { task } from 'ember-concurrency';
 
-const {get,set} = Ember;
-
-export default Ember.Component.extend({
+export default Component.extend({
   localClassNames: 'map',
-  lightElements: Ember.computed('lightFixtures.@each.elements', {
+  lightElements: computed('lightFixtures.@each.elements', {
     get() {
       return get(this, 'lightFixtures')
         .map(f => get(f, 'elements').toArray())
         .reduce((a, b) => [...a, ...b], []);
     }
   }),
-  selectedLightElements: Ember.computed('selectedIds.[]', 'lightElements.@each.id', {
+  selectedLightElements: computed('selectedIds.[]', 'lightElements.@each.id', {
     get() {
       return get(this, 'lightElements')
         .filter(li => get(this, 'selectedIds').includes(get(li, 'id')));
@@ -45,7 +45,7 @@ export default Ember.Component.extend({
       }
     });
 
-    yield Ember.RSVP.all(channels.map(channel => channel.save()));
+    yield all(channels.map(channel => channel.save()));
   }),
   actions: {
     selectAll() {

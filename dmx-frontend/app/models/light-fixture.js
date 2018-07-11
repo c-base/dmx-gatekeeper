@@ -1,7 +1,6 @@
-import Ember from 'ember';
+import { get } from '@ember/object';
 import DS from 'ember-data';
 
-const {get} = Ember;
 const {attr,hasMany} = DS;
 
 export default DS.Model.extend({

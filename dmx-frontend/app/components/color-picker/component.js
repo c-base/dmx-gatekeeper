@@ -1,10 +1,10 @@
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
+import { set, get, computed } from '@ember/object';
 
-const {get,set} = Ember;
-
-export default Ember.Component.extend({
-  store: Ember.inject.service(),
-  colors: Ember.computed({
+export default Component.extend({
+  store: service(),
+  colors: computed({
     get() {
       return get(this, 'store').findAll('color');
     }

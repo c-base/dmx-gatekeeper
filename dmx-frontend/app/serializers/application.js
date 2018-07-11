@@ -1,4 +1,5 @@
-import Ember from 'ember';
+import { guidFor } from '@ember/object/internals';
+import { underscore } from '@ember/string';
 import DS from 'ember-data';
 
 export default DS.JSONAPISerializer.extend({
@@ -57,7 +58,7 @@ export default DS.JSONAPISerializer.extend({
     return this._super(modelClass, { attributes: resourceHash });
   },
   keyForAttribute(attr) {
-    return Ember.String.underscore(attr);
+    return underscore(attr);
   },
   extractId(typeClass, hash, parentId) {
     let idKey = Object.keys(hash).find(key => key.endsWith('_id'));
@@ -69,6 +70,6 @@ export default DS.JSONAPISerializer.extend({
       return `${parentId}/'#/${hash.name}`
     }
 
-    return Ember.guidFor(hash);
+    return guidFor(hash);
   },
 });

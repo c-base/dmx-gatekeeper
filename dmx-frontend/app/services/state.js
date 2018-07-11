@@ -1,12 +1,12 @@
-import Ember from 'ember';
-import {task, timeout} from 'ember-concurrency';
+import { later } from '@ember/runloop';
+import Service, { inject as service } from '@ember/service';
+import { set, get } from '@ember/object';
+import { task, timeout } from 'ember-concurrency';
 
-const {get,set} = Ember;
-
-export default Ember.Service.extend({
-  store: Ember.inject.service(),
+export default Service.extend({
+  store: service(),
   start() {
-    Ember.run.later(() => get(this, 'initWebSocketConn').perform());
+    later(() => get(this, 'initWebSocketConn').perform());
   },
 
   toSave: [],
@@ -64,7 +64,7 @@ export default Ember.Service.extend({
     console.log('lost socket');
     set(this, 'socket', null);
     // reopen
-    Ember.run.later(() => get(this, 'initWebSocketConn').perform(1000));
+    later(() => get(this, 'initWebSocketConn').perform(1000));
   },
 
 

@@ -1,9 +1,9 @@
-import Ember from 'ember';
+import { alias } from '@ember/object/computed';
+import Controller from '@ember/controller';
+import { set } from '@ember/object';
 
-const {set} = Ember;
-
-export default Ember.Controller.extend({
-  lightFixtures: Ember.computed.alias('model'),
+export default Controller.extend({
+  lightFixtures: alias('model'),
   queryParams: ['selectedIds'],
   selectedIds: [],
   actions: {

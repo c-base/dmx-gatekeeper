@@ -1,14 +1,15 @@
-import Ember from 'ember';
+import { htmlSafe } from '@ember/string';
+import { equal } from '@ember/object/computed';
+import Component from '@ember/component';
+import { get, computed } from '@ember/object';
 
-const {get} = Ember;
-
-export default Ember.Component.extend({
+export default Component.extend({
   attributeBindings: ['style'],
   localClassNames: ['light'],
-  isSingleElement: Ember.computed.equal('lightFixture.elements.length', 1),
-  style: Ember.computed('lightFixture.posY', 'lightFixture.posX', 'lightFixture.simpleColor', {
+  isSingleElement: equal('lightFixture.elements.length', 1),
+  style: computed('lightFixture.posY', 'lightFixture.posX', 'lightFixture.simpleColor', {
     get() {
-     return Ember.String.htmlSafe(`
+     return htmlSafe(`
         top: ${get(this, 'lightFixture.posY')}px;
         left: ${get(this, 'lightFixture.posX')}px;
       `);

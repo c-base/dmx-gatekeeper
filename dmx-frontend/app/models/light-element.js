@@ -1,7 +1,6 @@
-import Ember from 'ember';
+import { get, computed } from '@ember/object';
 import DS from 'ember-data';
 
-const {get} = Ember;
 const {attr,belongsTo,hasMany} = DS;
 
 export default DS.Model.extend({
@@ -15,7 +14,7 @@ export default DS.Model.extend({
   //     return Ember.compare(channels.sort(), ['b', 'g', 'r']) === 0;
   //   }
   // }),
-  simpleColor: Ember.computed('channels.@each.{name,value}', {
+  simpleColor: computed('channels.@each.{name,value}', {
     get() {
       const channels = get(this, 'channels');
 

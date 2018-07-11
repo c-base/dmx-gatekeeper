@@ -1,19 +1,19 @@
-import Ember from 'ember';
+import { htmlSafe } from '@ember/string';
+import Component from '@ember/component';
+import { get, computed } from '@ember/object';
 
-const {get} = Ember;
-
-export default Ember.Component.extend({
+export default Component.extend({
   tagName: '',
 
-  buttonStyle: Ember.computed('lightElement.simpleColor', {
+  buttonStyle: computed('lightElement.simpleColor', {
     get() {
-      return Ember.String.htmlSafe(`
+      return htmlSafe(`
         background: ${get(this, 'lightElement.simpleColor')};
       `);
     }
   }),
 
-  selected: Ember.computed('selectedIds.[]', 'lightElement.id', {
+  selected: computed('selectedIds.[]', 'lightElement.id', {
     get() {
       return get(this, 'selectedIds').includes(get(this, 'lightElement.id'));
     }

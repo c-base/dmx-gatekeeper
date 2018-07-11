@@ -1,9 +1,9 @@
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
+import { set, get } from '@ember/object';
 
-const {get,set} = Ember;
-
-export default Ember.Component.extend({
-  magic: Ember.inject.service(),
+export default Component.extend({
+  magic: service(),
   actions: {
     pi(event) {
       if(event.shiftKey && event.ctrlKey && !get(this, 'magic.active')) {
