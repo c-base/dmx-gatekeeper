@@ -1,18 +1,9 @@
 import Application from '@ember/application';
-import Ember from 'ember';
 import Resolver from './resolver';
 import loadInitializers from 'ember-load-initializers';
 import config from './config/environment';
-import Inflector from 'ember-inflector';
 
-const inflector = Inflector.inflector;
-inflector.uncountable('status');
-
-let App;
-
-Ember.MODEL_FACTORY_INJECTIONS = true;
-
-App = Application.extend({
+const App = Application.extend({
   modulePrefix: config.modulePrefix,
   podModulePrefix: config.podModulePrefix,
   Resolver
