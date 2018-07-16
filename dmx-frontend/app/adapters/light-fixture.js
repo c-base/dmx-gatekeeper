@@ -7,4 +7,3 @@ export default ApplicationAdapter.extend({
     return 'api/v1/fixtures/'
   },
 });
-

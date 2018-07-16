@@ -1,16 +1,41 @@
-<input local-class="picker" type="color" onchange={{action 'selectColor' value="target.value"}} />
-{{#if selectedColor}}
-  <button onclick={{action 'addColor'}}>
-    Farbe sichern
-  </button>
+RGB:
+{{#if currentRgb}}
+  <input
+    value={{currentRgb}}
+    local-class="picker"
+    type="color"
+    onchange={{action 'selectColor' value="target.value"}}
+  />
+    <button onclick={{action 'disableRgb'}}>Disable</button>
+{{else}}
+  <button onclick={{action 'enableRgb'}}>Enable</button>
 {{/if}}
 
-<secion local-class="colors">
-  {{#each colors as |color|}}
-    <section local-class="color" style={{build-css
-      background-color=color.id
-    }} onclick={{action selectColor color.id}}>
-      <div local-class="delete-color" onclick={{action 'deleteColor' color}}>&#215;</div>
-    </section>
-  {{/each}}
-</secion>
+{{#each this.nonRgbChannels as |channel|}}
+  <div>
+    {{channel.name}} ({{channel.value}})
+    {{#if channel.disabled}}
+      <button onclick={{action 'selectChannelValue' channel.name 0}}>Enable</button>
+    {{else}}
+      <input
+        type="range"
+        min="0"
+        max="254"
+        value={{channel.value}}
+        onchange={{action (action 'selectChannelValue' channel.name) value='target.value'}}
+      />
+      <button onclick={{action 'selectChannelValue' channel.name null}}>Disable</button>
+    {{/if}}
+  </div>
+{{/each}}
+
+<button onclick={{action 'save'}}>Save</button>
+<button onclick={{action 'clear'}}>Clear</button>
+
+{{#each presets as |preset|}}
+  <div onclick={{action 'activatePreset' preset}}>
+    {{#each preset.channels as |c|}}
+      {{c.name}}:{{c.value}}
+    {{/each}}
+  </div>
+{{/each}}

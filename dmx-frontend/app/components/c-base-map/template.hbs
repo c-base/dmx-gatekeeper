@@ -9,15 +9,7 @@
 
   <img src="http://baseos.cbrp3.c-base.org/dmxdmon/mainhall.png" />
 </section>
+
 <section>
-  {{#if selectedLightFixtures}}
-    {{selectedLightFixtures.length}} Licht setzen
-  {{else}}
-    Alle Lichter setzen
-  {{/if}}
-
-  {{color-picker selectColor=(perform selectColor)}}
-
-  <button onclick={{perform selectWhite true}}>WHITE ON</button>
-  <button onclick={{perform selectWhite false}}>WHITE OFF</button>
+  {{color-picker setChannel=(action 'setChannel')}}
 </section>

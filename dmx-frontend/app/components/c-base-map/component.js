@@ -18,41 +18,51 @@ export default Component.extend({
         .filter(li => get(this, 'selectedIds').includes(get(li, 'id')));
     }
   }),
-  selectWhite: task(function * (on) {
-    const vals = on
-      ? { cw: 102, ww: 51, dim: 128 }
-      : { cw: 0, ww: 0, dim: 0 };
+  // selectWhite: task(function * (on) {
+  //   const vals = on
+  //     ? { cw: 102, ww: 51, dim: 128 }
+  //     : { cw: 0, ww: 0, dim: 0 };
 
-    yield this.get('setVals').perform(vals);
-  }),
-  selectColor: task(function * (color) {
-    const vals = {
-      r: Number.parseInt([...color].slice(1, 3).join(''), 16),
-      g: Number.parseInt([...color].slice(3, 5).join(''), 16),
-      b: Number.parseInt([...color].slice(5, 7).join(''), 16),
-    };
+  //   yield this.get('setVals').perform(vals);
+  // }),
+  // selectColor: task(function * (color) {
+  //   const vals = {
+  //     r: Number.parseInt([...color].slice(1, 3).join(''), 16),
+  //     g: Number.parseInt([...color].slice(3, 5).join(''), 16),
+  //     b: Number.parseInt([...color].slice(5, 7).join(''), 16),
+  //   };
 
-    yield this.get('setVals').perform(vals);
-  }),
-  setVals: task(function * (vals) {
-    const channels = get(this, 'selectedLightElements')
-      .reduce((arr, element) => [...get(element, 'channels').toArray(), ...arr], []);
+  //   yield this.get('setVals').perform(vals);
+  // }),
+  // setVals: task(function * (vals) {
+  //   const channels = get(this, 'selectedLightElements')
+  //     .reduce((arr, element) => [...get(element, 'channels').toArray(), ...arr], []);
 
-    channels.forEach(c => {
-      let name = get(c, 'name');
-      if(vals[name] !== undefined) {
-        set(c, 'value', vals[name]);
-      }
-    });
+  //   channels.forEach(c => {
+  //     let name = get(c, 'name');
+  //     if(vals[name] !== undefined) {
+  //       set(c, 'value', vals[name]);
+  //     }
+  //   });
 
-    yield all(channels.map(channel => channel.save()));
-  }),
+  //   yield all(channels.map(channel => channel.save()));
+  // }),
   actions: {
     selectAll() {
       get(this, 'select')(get(this, 'lightElements').map(f => get(f, 'id')));
     },
     deselectAll() {
       get(this, 'select')([]);
+    },
+    setChannel(name, value) {
+      const channels = get(this, 'selectedLightElements')
+        .reduce((arr, element) => [...get(element, 'channels').toArray(), ...arr], []);
+
+        channels.filter(c => c.name === name)
+          .forEach(c => {
+            c.set('value', value)
+            c.save();
+          });
     },
   }
 });

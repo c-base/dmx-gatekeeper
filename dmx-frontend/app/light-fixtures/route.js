@@ -4,7 +4,9 @@ import { get } from '@ember/object';
 
 export default Route.extend({
   state: service(),
-  model() {
+  async model() {
+    await this.store.findAll('preset');
+    await this.store.findAll('preset-channel');
     return this.store.findAll('light-fixture');
   },
   afterModel() {
