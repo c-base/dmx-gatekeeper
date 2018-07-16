@@ -4,6 +4,9 @@
       {{c-base-map-light-element selectedIds=selectedIds select=select lightElement=lightElement isSingleElement=isSingleElement}}
     {{/each}}
   {{else}}
+    <div local-class="expand">
+      {{fa-icon 'arrows-alt-h'}}
+    </div>
     {{c-base-map-multi-light-element
         selectedIds=selectedIds
         select=select
