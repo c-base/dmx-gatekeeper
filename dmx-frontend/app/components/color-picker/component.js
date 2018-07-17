@@ -54,6 +54,7 @@ export default Component.extend({
       if(value === null) {
         this.set('values', other);
       } else {
+        value = parseInt(value);
         this.set('values', [{ name, value }, ...other]);
         this.setChannel(name, value);
       }
