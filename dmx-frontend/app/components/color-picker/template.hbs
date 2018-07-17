@@ -15,7 +15,7 @@ RGB:
   <div>
     {{channel.name}} ({{channel.value}})
     {{#if channel.disabled}}
-      <button onclick={{action 'selectChannelValue' channel.name 0}}>Enable</button>
+      <button onclick={{action 'selectChannelValue' channel.name 0 true}}>Enable</button>
     {{else}}
       <input
         type="range"

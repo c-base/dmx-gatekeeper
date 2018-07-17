@@ -49,14 +49,16 @@ export default Component.extend({
     }
   }),
   actions: {
-    selectChannelValue(name, value) {
+    selectChannelValue(name, value, preventUpdate) {
       const other = this.values.filter(v => v.name !== name);
       if(value === null) {
         this.set('values', other);
       } else {
         value = parseInt(value);
         this.set('values', [{ name, value }, ...other]);
-        this.setChannel(name, value);
+        if(!preventUpdate) {
+          this.setChannel(name, value);
+        }
       }
     },
     selectColor(color) {
