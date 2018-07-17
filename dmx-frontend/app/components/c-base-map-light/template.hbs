@@ -3,8 +3,13 @@
     {{#each lightFixture.elements as |lightElement|}}
       {{c-base-map-light-element selectedIds=selectedIds select=select lightElement=lightElement isSingleElement=isSingleElement}}
     {{/each}}
+    {{#unless isSingleElement}}
+      <div local-class="expand" onclick={{action (mut extend) false}}>
+        {{fa-icon 'arrows-alt-h'}}
+      </div>
+    {{/unless}}
   {{else}}
-    <div local-class="expand">
+    <div local-class="expand" onclick={{action (mut extend) true}}>
       {{fa-icon 'arrows-alt-h'}}
     </div>
     {{c-base-map-multi-light-element

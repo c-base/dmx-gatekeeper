@@ -11,5 +11,6 @@
 
 .expand {
   position: absolute;
+  cursor: pointer;
   transform: translate(-8px, 7px);
 }
