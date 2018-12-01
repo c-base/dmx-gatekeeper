@@ -17,7 +17,7 @@ export default Component.extend({
       return get(this, 'store').peekAll('light-channel');
     }
   }),
-  oktogonChannels: computed('channels.@each.name', 'values.@each.{name,value}', {
+  oktagonChannels: computed('channels.@each.name', 'values.@each.{name,value}', {
     get() {
       return ['ww', 'cw', 'a'].map(name => {
         const value = this.values.find(v => v.name === name);
