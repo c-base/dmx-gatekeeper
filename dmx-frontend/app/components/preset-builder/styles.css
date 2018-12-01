@@ -1,0 +1,42 @@
+.root {
+  border: 1px solid black;
+  padding: 1rem;
+  margin: 1rem;
+  position: fixed;
+  top: 0;
+  background: #ddd;
+  width: 800px;
+  left: calc(50vw - 400px);
+  display: flex;
+  flex-direction: row;
+}
+
+.close {
+  position: absolute;
+  top: .5rem;
+  right: 0.5rem;
+  outline: none;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.info-bar, .presets, .builder {
+  flex-basis: 1px;
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+.preset {
+  background: white;
+  padding: 0.5rem;
+  margin: 0.5rem;
+  position: relative;
+}
+
+.delete {
+  position: absolute;
+  right: 0.5rem;
+  outline: none;
+  border: 1px solid black;
+  cursor: pointer;
+}

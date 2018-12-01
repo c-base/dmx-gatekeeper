@@ -8,12 +8,6 @@ export default DS.Model.extend({
   channels: hasMany('light-channel'),
   fixture: belongsTo('light-fixture'),
 
-  // isRGB: Ember.computed('channels.@each.name', {
-  //   get() {
-  //     let channels = get(this, 'channels').map(c => get(c, 'name'));
-  //     return Ember.compare(channels.sort(), ['b', 'g', 'r']) === 0;
-  //   }
-  // }),
   simpleColor: computed('channels.@each.{name,value}', {
     get() {
       const channels = get(this, 'channels');

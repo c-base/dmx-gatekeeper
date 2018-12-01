@@ -1,4 +1,49 @@
-RGB:
+<div>Change color of selected Lights:</div>
+
+<input
+  value={{currentRgb}}
+  local-class="picker"
+  type="color"
+  onchange={{action 'selectColor' value="target.value"}}
+/>
+
+<div>Change light of oktogons:</div>
+
+{{#each this.oktogonChannels as |channel|}}
+  <div>
+    {{channel.name}} ({{channel.value}})
+    <input
+      type="range"
+      min="0"
+      max="254"
+      value={{channel.value}}
+      onchange={{action (action 'selectChannelValue' channel.name) value='target.value'}}
+    />
+  </div>
+{{/each}}
+
+<div>Presets:</div>
+{{#each this.presets as |preset|}}
+  <div
+    onclick={{action 'activatePreset' preset}}
+    local-class="preset"
+    style={{css-properties background-color=preset.rgb}}
+  >
+    {{#each preset.channels as |c|}}
+      {{c.name}}:{{c.value}}
+    {{/each}}
+  </div>
+{{/each}}
+
+<button onclick={{action (mut this.showPresetBuilder) (not this.showPresetBuilder)}}>
+  Toggle Preset Builder
+</button>
+
+{{#if this.showPresetBuilder}}
+  {{preset-builder close=(action (mut this.showPresetBuilder) false)}}
+{{/if}}
+
+{{!-- RGB:
 {{#if currentRgb}}
   <input
     value={{currentRgb}}
@@ -38,4 +83,4 @@ RGB:
       {{c.name}}:{{c.value}}
     {{/each}}
   </div>
-{{/each}}
+{{/each}} --}}

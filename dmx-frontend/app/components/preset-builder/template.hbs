@@ -1,0 +1,58 @@
+<div local-class="root">
+  <button local-class="close" onclick={{action close}}>X</button>
+  <div local-class="info-bar">
+    To create a preset enable all channels the preset should control, select the values and press save.
+
+    Activating the preset later will only set the selected channels.
+
+    So a preset can for example either only set the RGB color, the octogons, or both.
+  </div>
+
+  <div local-class="builder">
+    RGB:
+    {{#if currentRgb}}
+      <input
+        value={{currentRgb}}
+        local-class="picker"
+        type="color"
+        onchange={{action 'selectColor' value="target.value"}}
+      />
+        <button onclick={{action 'disableRgb'}}>Disable</button>
+    {{else}}
+      <button onclick={{action 'enableRgb'}}>Enable</button>
+    {{/if}}
+
+    {{#each this.nonRgbChannels as |channel|}}
+      <div>
+        {{channel.name}} ({{channel.value}})
+        {{#if channel.disabled}}
+          <button onclick={{action 'selectChannelValue' channel.name 0}}>Enable</button>
+        {{else}}
+          <input
+            type="range"
+            min="0"
+            max="254"
+            value={{channel.value}}
+            onchange={{action (action 'selectChannelValue' channel.name) value='target.value'}}
+          />
+          <button onclick={{action 'selectChannelValue' channel.name null}}>Disable</button>
+        {{/if}}
+      </div>
+    {{/each}}
+
+    <button onclick={{action 'save'}}>Save</button>
+    <button onclick={{action 'clear'}}>Disable all</button>
+  </div>
+
+  <div local-class="presets">
+    <div>Presets:</div>
+    {{#each presets as |preset|}}
+      <div local-class="preset">
+        {{#each preset.channels as |c|}}
+          {{c.name}}:{{c.value}}
+        {{/each}}
+        <button onclick={{action "deletePreset" preset}} local-class="delete">X</button>
+      </div>
+    {{/each}}
+  </div>
+</div>

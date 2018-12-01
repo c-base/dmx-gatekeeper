@@ -9,45 +9,38 @@ export default Component.extend({
   init() {
     this._super(...arguments);
     this.set('values', []);
+    this.store.findAll('preset')
+      .then(p => this.set('presets', p));
   },
-  presets: computed({
-    get() {
-      return this.store.findAll('preset');
-    },
-  }),
   lightChannels: computed({
     get() {
       return get(this, 'store').peekAll('light-channel');
     }
   }),
-  nonRgbChannels: computed('channels.@each.name', 'values.@each.{name,value}', {
+  oktogonChannels: computed('channels.@each.name', 'values.@each.{name,value}', {
     get() {
-      return this.lightChannels
-        .map(c => c.get('name'))
-        .uniq()
-        .filter(c => !['r', 'g', 'b'].includes(c))
-        .map(name => {
-          const value = this.values.find(v => v.name === name);
-          if(value) {
-            return value;
-          }
-          return {name, disabled: true};
-        });
+      return ['ww', 'cw', 'a'].map(name => {
+        const value = this.values.find(v => v.name === name);
+        if(value) {
+          return value;
+        }
+        return {name, value: 0};
+      });
     }
   }),
-  currentRgb: computed('channels.@each.name', 'values.@each.{name,value}', {
-    get() {
-      const colors = ['r', 'g', 'b']
-        .map(c => this.values.find(v => v.name === c))
-        .filter(x => x)
-        .map(c => c.value);
-      if(colors.length !== 3) {
-        return null;
-      }
+  // currentRgb: computed('channels.@each.name', 'values.@each.{name,value}', {
+  //   get() {
+  //     const colors = ['r', 'g', 'b']
+  //       .map(c => this.values.find(v => v.name === c))
+  //       .filter(x => x)
+  //       .map(c => c.value);
+  //     if(colors.length !== 3) {
+  //       return null;
+  //     }
 
-      return `#${colors.map(v => v.toString(16).padStart(2, '0')).join('')}`;
-    }
-  }),
+  //     return `#${colors.map(v => v.toString(16).padStart(2, '0')).join('')}`;
+  //   }
+  // }),
   actions: {
     selectChannelValue(name, value, preventUpdate) {
       const other = this.values.filter(v => v.name !== name);
@@ -70,32 +63,32 @@ export default Component.extend({
       Object.keys(vals)
         .forEach(k => this.send('selectChannelValue', k, vals[k]));
     },
-    clear() {
-      this.set('values', []);
-    },
-    enableRgb() {
-      this.set('values', [
-        { name: 'r', value: 0 },
-        { name: 'g', value: 0 },
-        { name: 'b', value: 0 },
-        ...this.values,
-      ]);
-    },
-    disableRgb() {
-      this.set('values', this.values.filter(v => !['r', 'g', 'b'].includes(v.name)));
-    },
-    async save() {
-      const id = Math.random().toString().substr(2);
-      const preset = this.store.createRecord('preset', {id});
-      await preset.save();
+    // clear() {
+    //   this.set('values', []);
+    // },
+    // enableRgb() {
+    //   this.set('values', [
+    //     { name: 'r', value: 0 },
+    //     { name: 'g', value: 0 },
+    //     { name: 'b', value: 0 },
+    //     ...this.values,
+    //   ]);
+    // },
+    // disableRgb() {
+    //   this.set('values', this.values.filter(v => !['r', 'g', 'b'].includes(v.name)));
+    // },
+    // async save() {
+    //   const id = Math.random().toString().substr(2);
+    //   const preset = this.store.createRecord('preset', {id});
+    //   await preset.save();
 
-      await RSVP.all(this.values.map(value => this.store.createRecord('preset-channel', {
-        id: `${id}-${value.name}`,
-        value: value.value,
-        name: value.name,
-        preset,
-      }).save()));
-    },
+    //   await RSVP.all(this.values.map(value => this.store.createRecord('preset-channel', {
+    //     id: `${id}-${value.name}`,
+    //     value: value.value,
+    //     name: value.name,
+    //     preset,
+    //   }).save()));
+    // },
     activatePreset(preset) {
       preset.channels.forEach(c => {
         this.setChannel(c.name, c.value);
