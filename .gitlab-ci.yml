@@ -3,7 +3,7 @@ stages:
 
 build_ember:
   stage: build
-  image: yarnpkg/node-yarn:node7
+  image: yarnpkg/node-yarn:node10
   tags:
     - docker
   cache:
