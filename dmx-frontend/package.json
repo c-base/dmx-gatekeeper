@@ -14,7 +14,8 @@
     "build": "ember build",
     "lint:js": "eslint .",
     "start": "ember serve",
-    "test": "ember test"
+    "test": "ember test",
+    "deploy": "cd dist;scp -r . uk@dmx:/home/uk/dmxbackend/static"
   },
   "devDependencies": {
     "@fortawesome/ember-fontawesome": "^0.1.0",
