@@ -17,6 +17,12 @@ export default Component.extend({
       return get(this, 'store').peekAll('light-channel');
     }
   }),
+  showRgbChannels: computed('selectedChannels.@each.id', function() {
+    return this.selectedChannels.map(e => e.name).includes('r');
+  }),
+  showOktagonChannels: computed('selectedChannels.@each.id', function() {
+    return this.selectedChannels.map(e => e.name).includes('ww');
+  }),
   oktagonChannels: computed('channels.@each.name', 'values.@each.{name,value}', {
     get() {
       return ['ww', 'cw', 'a', 'dim'].map(name => {

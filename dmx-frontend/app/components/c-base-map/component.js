@@ -18,6 +18,10 @@ export default Component.extend({
         .filter(li => get(this, 'selectedIds').includes(get(li, 'id')));
     }
   }),
+  selectedChannels: computed('selectedLightElements.@each.channels', function() {
+    return this.selectedLightElements.map(l => l.get('channels'))
+      .reduce((a,b) => [...a.toArray(), ...b.toArray()], []);
+  }),
   // selectWhite: task(function * (on) {
   //   const vals = on
   //     ? { cw: 102, ww: 51, dim: 128 }

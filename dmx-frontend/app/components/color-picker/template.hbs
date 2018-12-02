@@ -1,26 +1,30 @@
-<div>Change color of selected Lights:</div>
+{{#if showRgbChannels}}
+  <div>Change color of selected Lights:</div>
 
-<input
-  value={{currentRgb}}
-  local-class="picker"
-  type="color"
-  onchange={{action 'selectColor' value="target.value"}}
-/>
+  <input
+    value={{currentRgb}}
+    local-class="picker"
+    type="color"
+    onchange={{action 'selectColor' value="target.value"}}
+  />
+{{/if}}
 
-<div>Change light of selected oktagons:</div>
+{{#if showOktagonChannels}}
+  <div>Change light of selected oktagons:</div>
 
-{{#each this.oktagonChannels as |channel|}}
-  <div>
-    {{channel.name}} ({{channel.value}})
-    <input
-      type="range"
-      min="0"
-      max="254"
-      value={{channel.value}}
-      onchange={{action (action 'selectChannelValue' channel.name) value='target.value'}}
-    />
-  </div>
-{{/each}}
+  {{#each this.oktagonChannels as |channel|}}
+    <div>
+      {{channel.name}} ({{channel.value}})
+      <input
+        type="range"
+        min="0"
+        max="254"
+        value={{channel.value}}
+        onchange={{action (action 'selectChannelValue' channel.name) value='target.value'}}
+      />
+    </div>
+  {{/each}}
+{{/if}}
 
 <div>Presets:</div>
 {{#each this.presets as |preset|}}
