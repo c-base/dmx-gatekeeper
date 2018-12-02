@@ -19,7 +19,7 @@ export default Component.extend({
   }),
   oktagonChannels: computed('channels.@each.name', 'values.@each.{name,value}', {
     get() {
-      return ['ww', 'cw', 'a'].map(name => {
+      return ['ww', 'cw', 'a', 'dim'].map(name => {
         const value = this.values.find(v => v.name === name);
         if(value) {
           return value;
